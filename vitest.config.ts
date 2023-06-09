@@ -4,6 +4,5 @@ export default defineConfig({
   test: {
     testTimeout: 10 * 60 * 1000,
     threads: false,
-    maxConcurrency: 1,
   },
 })
