@@ -1,10 +1,10 @@
-import { describe, test, vi } from 'vitest'
+import { describe, it, vi } from 'vitest'
 import { createIndexer, withHeaders } from '../../src'
 
 const indexer = createIndexer()
 
 describe('with-headers', () => {
-  test('headers', async ({ expect }) => {
+  it('headers', async ({ expect }) => {
     const fakeResponse = { result: true }
     const headers = {
       'x-my-header': 'foo',
