@@ -87,7 +87,7 @@ describe('character', () => {
       expect(character.data.characterId).toBe(characterId)
     })
 
-    test.concurrent('getCharacter', async () => {
+    test.concurrent('getCharacter', async ({ expect }) => {
       const { data } = await contract.character.get({
         characterId: characterId!,
       })
@@ -95,7 +95,7 @@ describe('character', () => {
       expect(data.uri).toBe(metadataUri)
     })
 
-    test.concurrent('getCharacterByHandle', async () => {
+    test.concurrent('getCharacterByHandle', async ({ expect }) => {
       const { data } = await contract.character.getByHandle({
         handle: randomHandle,
       })
@@ -104,14 +104,14 @@ describe('character', () => {
       expect(data.uri).toBe(metadataUri)
     })
 
-    test.concurrent('getHandle', async () => {
+    test.concurrent('getHandle', async ({ expect }) => {
       const { data } = await contract.character.getHandle({
         characterId: characterId!,
       })
       expect(data).toBe(randomHandle)
     })
 
-    test.concurrent('getCharacterMetadataUri', async () => {
+    test.concurrent('getCharacterMetadataUri', async ({ expect }) => {
       const { data } = await contract.character.getUri({
         characterId: characterId!,
       })

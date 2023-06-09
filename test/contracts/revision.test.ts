@@ -1,11 +1,11 @@
-import { describe, expect, it } from 'vitest'
+import { describe, it } from 'vitest'
 import { Contract } from '../../src'
 import { mockUser } from '../mock'
 
 const contract = new Contract(mockUser.privateKey)
 
 describe('revision', () => {
-  it.concurrent('should return the latest revision', async () => {
+  it.concurrent('should return the latest revision', async ({ expect }) => {
     const { data: latest } = await contract.revision.getLatest()
     expect(latest > 0n).toBe(true)
 
@@ -13,7 +13,7 @@ describe('revision', () => {
     expect(current).toBe(latest)
   })
 
-  it.concurrent('check', async () => {
+  it.concurrent('check', async ({ expect }) => {
     const res = await contract.revision.check()
     expect(res.data.currentRevision > 0n).toBe(true)
     expect(res.data.isUpToDate).is.a('boolean')

@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'vitest'
+import { describe, test } from 'vitest'
 import { parseCsbUri } from '../../src/utils/csb'
 
 describe.concurrent('csb', () => {
-  test.concurrent('parseCsbUri', () => {
+  test.concurrent('parseCsbUri', ({ expect }) => {
     // error cases
 
     expect(() => parseCsbUri('https://random')).toThrow()
