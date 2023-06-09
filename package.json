@@ -61,7 +61,7 @@
     "docs:build": "typedoc",
     "docs:preview": "serve docs",
     "prepublishOnly": "npm run build",
-    "test": "vitest",
+    "test": "vitest --no-threads",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.mjs --max-warnings 0 .",
     "typecheck": "tsc --noEmit",
     "release": "bumpp"
