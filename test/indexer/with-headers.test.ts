@@ -1,4 +1,4 @@
-import { describe, it, vi } from 'vitest'
+import { afterAll, describe, it, vi } from 'vitest'
 import { createIndexer, withHeaders } from '../../src'
 
 const indexer = createIndexer()
@@ -12,7 +12,7 @@ describe('with-headers', () => {
     const fakeFetch = vi.fn<Parameters<typeof fetch>>(() =>
       Promise.resolve(new Response(JSON.stringify(fakeResponse))),
     )
-    vi.stubGlobal('fetch', fakeFetch)
+    // vi.stubGlobal('fetch', fakeFetch)
 
     const result = withHeaders(() => indexer.fetch('/foo'), headers)
 
@@ -23,5 +23,9 @@ describe('with-headers', () => {
       (fakeFetch.mock.calls[0][1]!.headers as Headers).entries(),
     )
     expect(requestHeaders).toEqual(headers)
+  })
+
+  afterAll(() => {
+    vi.unstubAllGlobals()
   })
 })
