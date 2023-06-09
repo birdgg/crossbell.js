@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { ipfsUploadJson } from '../../src/ipfs'
 
-describe.concurrent('ipfs', () => {
+describe('ipfs', () => {
   test('uploadJson', async () => {
     const res = await ipfsUploadJson({
       type: 'character',
