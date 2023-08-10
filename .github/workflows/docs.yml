@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: echo github ref
+        run: echo "Deploying to production server on branch $GITHUB_REF"
+
       - name: Exit if not on main branch
         if: endsWith(github.ref, 'main') == false
         run: exit -1
