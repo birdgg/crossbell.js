@@ -42,6 +42,7 @@ async function getAllAbis() {
     { abi: cbt },
     { abi: newbieVilla },
     { abi: tips },
+    { abi: tipsWithFee },
     mira,
     { abi: linklist },
   ] = await Promise.all([
@@ -51,6 +52,7 @@ async function getAllAbis() {
     getAbi('CharacterBoundToken'),
     getAbi('NewbieVilla'),
     getAbi('Tips'),
+    getAbi('TipsWithFee'),
     getAbi(
       'https://raw.githubusercontent.com/Crossbell-Box/crossbell-bridge-contracts/main/build-info/MiraToken.abi',
     ),
@@ -65,6 +67,7 @@ async function getAllAbis() {
     ['cbt', simplifyAbi(cbt)],
     ['newbie-villa', simplifyAbi(newbieVilla)],
     ['tips', simplifyAbi(tips)],
+    ['tips-with-fee', simplifyAbi(tipsWithFee)],
     ['mira', simplifyAbi(mira)],
     ['linklist', simplifyAbi(linklist)],
   ]
@@ -90,7 +93,7 @@ function getAbi(name) {
 async function writeAbi(name, abi) {
   const camelName = camelCase(name)
   const pascalName = pascalCase(name)
-  const contents = format(
+  const contents = await format(
     `export const ${camelName} = ${JSON.stringify(abi)} as const;
     export type ${pascalName} = typeof ${camelName};`,
     { ...prettierConfig, parser: 'babel-ts' },

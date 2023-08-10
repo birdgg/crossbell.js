@@ -6,6 +6,7 @@ import {
   type Log,
   type PrivateKeyAccount,
   type PublicClient,
+  type TransactionReceipt,
   type Transport,
   type WalletClient,
   createPublicClient,
@@ -46,6 +47,9 @@ export function createDefaultPublicClient(): PublicClient {
     transport,
     chain: crossbell,
     pollingInterval: 100,
+    batch: {
+      multicall: true,
+    },
   })
 }
 
@@ -77,7 +81,7 @@ export function getProviderAccount(
 
 export function createWalletClientFromProvider(
   provider: EIP1193Provider,
-  account?: Address | Account,
+  account: Address | Account,
 ): WalletClient<Transport, Chain, Account> {
   return createWalletClient({
     transport: custom(provider),
@@ -179,4 +183,24 @@ export function addressToAccount(address: Address | Account): Account {
       address,
     }
   return address
+}
+
+/** @see https://github.com/Crossbell-Box/crossbell.js/issues/40 */
+export async function waitForTransactionReceiptWithRetry(
+  client: PublicClient,
+  hash: Address,
+  retryCount = 10,
+): Promise<TransactionReceipt> {
+  let count = 0
+  while (count < retryCount) {
+    try {
+      const receipt = await client.waitForTransactionReceipt({ hash })
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      return receipt
+    } catch (e: any) {
+      if (count === retryCount - 1) throw e
+      count++
+    }
+  }
+  throw new Error('unreachable') // for type check
 }

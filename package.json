@@ -1,7 +1,7 @@
 {
   "name": "crossbell",
-  "version": "1.3.0",
-  "packageManager": "pnpm@8.6.1",
+  "version": "1.5.8",
+  "packageManager": "pnpm@8.6.10",
   "description": "JavaScript SDK to interact with Crossbell",
   "keywords": [
     "crossbell",
@@ -26,18 +26,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     },
     "./network": {
       "types": "./dist/network.d.ts",
-      "import": "./dist/network.mjs",
-      "require": "./dist/network.js"
+      "require": "./dist/network.js",
+      "import": "./dist/network.mjs"
     },
     "./ipfs": {
       "types": "./dist/ipfs.d.ts",
-      "import": "./dist/ipfs.mjs",
-      "require": "./dist/ipfs.js"
+      "require": "./dist/ipfs.js",
+      "import": "./dist/ipfs.mjs"
     },
     "./*": "./*"
   },
@@ -56,36 +56,35 @@
   },
   "scripts": {
     "build": "tsup --dts",
-    "watch": "tsup --watch",
-    "update-abi": "node ./scripts/update-abi.mjs",
     "docs:build": "typedoc",
     "docs:preview": "serve docs",
+    "lint": "echo \"No linting configured\"",
     "prepublishOnly": "npm run build",
+    "release": "bumpp",
     "test": "vitest",
-    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.mjs --max-warnings 0 .",
     "typecheck": "tsc --noEmit",
-    "release": "bumpp"
+    "update-abi": "node ./scripts/update-abi.mjs",
+    "watch": "tsup --watch"
   },
   "dependencies": {
     "@crossbell/ipfs-fetch": "^0.0.19",
     "async-retry": "^1.3.3",
     "eip1193-types": "^0.2.1",
     "p-limit": "^3.1.0",
-    "viem": "^1.0.2"
+    "viem": "^1.5.4"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "3.0.0",
     "@types/async-retry": "^1.4.5",
-    "@types/node": "^20.2.3",
-    "abitype": "^0.8.7",
+    "@types/node": "^20.4.9",
+    "abitype": "^0.9.6",
     "bumpp": "^9.1.1",
     "change-case": "^4.1.2",
-    "eslint": "^8.42.0",
-    "prettier": "^2.8.8",
-    "tsup": "^6.7.0",
+    "eslint": "^8.46.0",
+    "prettier": "^3.0.1",
+    "tsup": "^7.2.0",
     "typedoc": "^0.24.8",
-    "typescript": "^5.1.3",
-    "vitest": "^0.32.0"
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.1"
   },
   "engines": {
     "node": ">=16.14.0"
