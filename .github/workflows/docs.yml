@@ -7,7 +7,6 @@ on:
   push:
     tags:
       - 'v*'
-      - '!v0.*'
 
   workflow_dispatch:
 
@@ -19,6 +18,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Tag Version
+        id: get_tag_version
+        run: echo "::set-output name=tag_version::${{ github.ref_name }}"
+
+      - name: Check Tag Version
+        run: |
+          if [[ "${{ steps.get_tag_version.outputs.tag_version }}" < "v1.0.0" ]]; then
+            echo "Tag version is below v1.0.0. Exiting workflow."
+            exit 1
+          fi
+
       - name: Checkout
         uses: actions/checkout@v3
 
